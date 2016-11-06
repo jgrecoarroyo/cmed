@@ -1,6 +1,5 @@
 var path = require('path');
 
-// plugins
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
@@ -15,7 +14,8 @@ var config = {
   },
   module: {
       loaders: [
-          { test: /\.(scss|sass|css)$/, loader: ExtractTextPlugin.extract('css!sass') }
+          { test: /\.(scss|sass|css)$/, loader: ExtractTextPlugin.extract('css!sass') },
+          { test: /\.(jsx|js)$/, loader: 'jsx', exclude: /node_modules/ }
       ]
   },
   plugins: [
@@ -29,8 +29,7 @@ var config = {
     })
   ],
   resolve: {
-    // you can now require('file') instead of require('file.js')
-    extensions: ['', '.js', '.json', '.scss', '.css']
+    extensions: ['', '.js', '.jsx', '.scss', '.css']
   }
 };
 
