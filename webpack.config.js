@@ -2,6 +2,7 @@ var path = require('path');
 
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 var config = {
   debug: true,
@@ -26,6 +27,11 @@ var config = {
     }),
     new ExtractTextPlugin('all.css', {
       allChunks: true
+    }),
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: 3000,
+      server: { baseDir: ['www'] }
     })
   ],
   resolve: {

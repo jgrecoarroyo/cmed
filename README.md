@@ -1,4 +1,4 @@
-# react + reflux + webpack template
+# react + babel + webpack + browser-synch
 
 ### getting started
 
@@ -20,7 +20,7 @@ npm start
 
 
 
-##### build
+##### build (builds in dev mode and starts server) *TDB
 
 ```sh
 npm run build
@@ -45,20 +45,6 @@ npm run build:prod
 
 
 I'd preffer to not have to install webpack globally and have all the necessary dependencies stated in the package.json file. In this way, whenever the project is ported to another machine/VM/docker container, etc the project will be self sufficient to both: run in production mode and developer mode.
-
-
-
-------
-
-### working modes
-
-#### developer mode
-
-TBD: explain what are the expectations and working flow
-
-#### production mode
-
-TBD: explain what are the expectations and working flow
 
 
 
@@ -102,16 +88,21 @@ The best way to have an overall view is to check the [package.json](./package.js
 ``` javascript
 {
   "dependencies": {
-    "webpack",                     // webpack bundling
-    "path",                        //  - tool: path resolving (@webpack.config.js)
-    "css-loader",                  //  - loader: returns css code, resolves imports and url(...)
-    "sass-loader",                 //  - loader: converts sass to css
-    "node-sass",                   //  - dependecy: required by 'sass-loader'
-    "extract-text-webpack-plugin", //  - plugin: no need to include extensions on require/import
-    "html-webpack-plugin"          //  - plugin: creates a new index.html
-    "react",                       // react (core library)
-    "react-dom",                   //   - glue between react and DOM
-    "jsx-loader",                  //   - webpack-loader: convert JSX into JS
+    "webpack",                      // webpack (core library) 
+    "path",                         //  - tool: path resolving (@webpack.config.js)
+    "css-loader",                   //  - loader: returns css code, resolves imports and url(...)
+    "sass-loader",                  //  - loader: converts sass to css
+    "node-sass",                    //  - dependecy: required by 'sass-loader'
+    "extract-text-webpack-plugin",  //  - plugin: no need to include extensions on require/import
+    "html-webpack-plugin"           //  - plugin: creates a new index.html
+    "react",                        // react (core library)
+    "react-dom",                    //   - glue between react and DOM
+    "babel-core",                   // babel (core library)
+    "babel-loader",                 //   - loader: so webpack can use babel
+    "babel-preset-es2015",          //   - preset: ECMA Script 2015 compatibility
+    "babel-preset-react",           //   - preset: for JSX compatibility
+    "browser-synch",                // browser-synch (core library)
+    "browser-synch-webpack-plugin", //   - plugin: so webpack can use browser-synch
   }
 }
 ```
@@ -120,13 +111,14 @@ The best way to have an overall view is to check the [package.json](./package.js
 
 
 
-#### webpack
+#### webpack.config.js
 
 used for:
 
-1. Bundle all js files into one.
-2. Bundle all css/scss files into one
+1. Bundle all js files into one ('all.js')
+2. Bundle all css/scss files into one ('all.css')
 3. Create index.html from an EJS template
+4. Run a developer server using browser-synch
 
 ##### How?
 
@@ -157,7 +149,7 @@ var config = {
 
 
 
-##### loaders:
+##### module-loaders:
 
 ##### - scss
 
@@ -174,14 +166,15 @@ module: {
 
 
 
-##### - jsx
+##### - babel
 
 ```javascript
 ...
-// Convert '.JSX, .JS' files into '.JS' and bundle
+// preset 'react': Convert '.JSX, .JS' files into '.JS' and bundle
+// preset 'es2015': Convert ES6 to ES5
 module: {
       loaders: [
-          { test: /\.jsx$/, loader: 'jsx', exclude: /node_modules/ },
+          { test: /\.(jsx|js)$/, loaders: ['babel'], exclude: /node_modules/ },
       ]
   },
 ...
@@ -228,6 +221,26 @@ var config = {
 };
 ```
 
+##### - [browsersynch](https://www.npmjs.com/package/browser-sync-webpack-plugin)
+
+```javascript
+// Web server for testing the production build on multiple, synched windows (also diff devs)
+// Note: see port 3001 for browsersynch options
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
+var config = {
+  ...
+  plugins: [
+    new BrowserSyncPlugin({
+      host: 'localhost',
+      port: 3000,
+      server: { baseDir: ['www'] }
+    })
+  ],
+  ...
+};
+```
+
 
 
 ##### resolve
@@ -241,20 +254,6 @@ var config = {
   }
 };
 ```
-
-
-
-
-
-#### babel
-
-used for:
-
-
-
-------
-
-### tools
 
 
 
