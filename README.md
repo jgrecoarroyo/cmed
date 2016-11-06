@@ -6,32 +6,40 @@ In order to start the project we will be using npm scripts:
 
 ##### install
 
-```shell
+```sh
 npm install
+```
+
+
+
+##### start
+
+```sh
+npm start
 ```
 
 
 
 ##### build
 
-```shell
-./node_modules/.bin/webpack
+```sh
+npm run build
 ```
 
 
 
-##### production mode
+##### build development mode
 
-```shell
-./node_modules/.bin/webpack -p
+```sh
+npm run build:watch
 ```
 
 
 
-##### watch
+##### build production mode
 
-```shell
-./node_modules/.bin/webpack --watch
+```sh
+npm run build:prod
 ```
 
 

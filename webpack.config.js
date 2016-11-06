@@ -15,7 +15,7 @@ var config = {
   module: {
       loaders: [
           { test: /\.(scss|sass|css)$/, loader: ExtractTextPlugin.extract('css!sass') },
-          { test: /\.(jsx|js)$/, loader: 'jsx', exclude: /node_modules/ }
+          { test: /\.(jsx|js)$/, loaders: ['babel'], exclude: /node_modules/ }
       ]
   },
   plugins: [
