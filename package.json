@@ -1,0 +1,21 @@
+{
+  "name": "cmed",
+  "version": "1.0.0",
+  "description": "cmedens react + webpack + ES6",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juan Greco",
+  "license": "ISC",
+  "dependencies": {
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.24.1",
+    "node-sass": "^3.11.2",
+    "path": "^0.12.7",
+    "sass-loader": "^4.0.2",
+    "webpack": "^1.13.3"
+  },
+  "devDependencies": {}
+}
