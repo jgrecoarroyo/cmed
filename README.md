@@ -257,3 +257,8 @@ var config = {
 
 
 
+### TBD:
+
+https://www.npmjs.com/package/image-webpack-loader
+
+check image optimizations

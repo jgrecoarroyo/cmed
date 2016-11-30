@@ -16,13 +16,18 @@ var config = {
   module: {
       loaders: [
           { test: /\.(scss|sass|css)$/, loader: ExtractTextPlugin.extract('css!sass') },
-          { test: /\.(jsx|js)$/, loaders: ['babel'], exclude: /node_modules/ }
+          { test: /\.(jsx|js)$/, loaders: ['babel'], exclude: /node_modules/ },
+          { test: /\.(jpe?g|png|gif|svg)$/i, loaders: [
+            'file?hash=sha512&digest=hex&name=img/[hash].[ext]',
+            'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
+            ]
+          }
       ]
   },
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Project Title',
-      favicon: 'src/favico.ico',
+      favicon: 'src/img/favicon.ico',
       template: 'src/index.ejs'
     }),
     new ExtractTextPlugin('all.css', {
